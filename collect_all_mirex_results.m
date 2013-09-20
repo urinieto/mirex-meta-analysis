@@ -6,7 +6,7 @@ function data = collect_all_mirex_results(base_directory, dsets, algos)
 %
 % BASE_DIRECTORY should be the "mirex_path" specified in "get_mirex_estimates.rb",
 % or whatever directory contains all the downloaded MIREX data. For example:
-% "/Users/jordan/Desktop/MIREX_data"
+% "/Users/me/Desktop/MIREX_data"
 %
 % DSETS should contain the names of the datasets. The default value is all of them:
 %   {'mrx09','mrx10_1','mrx10_2','sal'}
@@ -22,9 +22,6 @@ function data = collect_all_mirex_results(base_directory, dsets, algos)
 % DATA(k).ALGO(j).RESULTS is a matrix giving the results for the kth dataset and
 % the jth algorithm.
 
-if nargin<1,
-    base_directory = '/Users/jordan/Desktop/MIREX_data';
-end
 if nargin<2,
     dsets = {'mrx09','mrx10_1','mrx10_2','sal'};
 end

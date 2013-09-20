@@ -8,54 +8,32 @@ All of the contents of this repository are released under the MIT license (shown
 
 1: You will need Ruby and Matlab and a connection to the Internet.
 
-2: You will need to download a version of the Structural Analysis Evaluation project, also hosted on SoundSoftware. You can donwload it here:
+2: You will need to download a version of the Structural Analysis Evaluation project, also hosted on SoundSoftware. You can do so here:
 <https://code.soundsoftware.ac.uk/projects/structural_analysis_evaluation/repository>
 
-3: You will need to edit some of the Ruby and Matlab files you have downloaded, in order to point the program to the desired folders.
+3: You will need to edit some of the Ruby and Matlab files you have downloaded, in order to point the program to the desired folders:
+   >> In "1-get_mirex_estimates.rb", set the path to download all the data
+NOTE: We recommend making this the "./mirex_data" path, since some of the data is already there!
+   >> In "2-generate_smith2013_ismir", set the exact same path
+   >> In "2-generate_smith2013_ismir", set the path for the "structural analysis evaluation" repository
+
+4. Run the Ruby script "1-get_mirex_estimates.rb" and wait a while for all the data to download.
+
+5. Unzip all the folders that you obtained.
+	Note: in this version, one of the repositories, the Ewald Peiszer repository, is included already as a zip file ("ep_groundtruth_txt.zip"). Please move this to 
+
+6. Run the Matlab script "2-generate_smith2013_ismir" and wait for all the data to be assembled, and for the figures to be generated.
+
+7. You're done! Hey, that wasn't so bad.
 
 
 
-2. 
-- Download data from MIREX website:
-	- Ground truth files
-	- Algorithm output
-	- Reported evaluation results
+===== The MIT License (MIT) =====
 
-File: get_mirex_estimates.rb
-Instructions: set local directory for download. Download repositories, unzip, set directories. [Can I write the script to do this?]
-
-(Pre-process this data.)
-
-- Assemble MIREX ground truth file data in Matlab.
-- Assemble MIREX algorithm output data in Matlab.
-- Assemble MIREX evaluation results in Matlab.
-
-- Download public repositories of annotations.
-
-- Assemble public ground truth data in Matlab.
-
-- Compute extra evaluation measures using MIREX algorithm output.
-
-- Compute extra features of the annotations (song length, mean segment length, etc.).
-
-- Compute correlations between all these parameters.
-
-- Display correlation figures.
-
-- Search for matches between MIREX and public ground truth.
-
-- Display analysis result figure.
-
-
-
-
-
-The MIT License (MIT)
-
-Copyright (c) 2013 DDMAL
+Copyright (c) 2013 Jordan B. L. Smith
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.

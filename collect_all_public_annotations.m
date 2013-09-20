@@ -9,7 +9,7 @@ function [publictruth dset_origin] = collect_all_public_annotations(base_directo
 %
 % BASE_DIRECTORY should be the "mirex_path" specified in "get_mirex_estimates.rb",
 % or whatever directory contains all the downloaded MIREX data. For example:
-% "/Users/jordan/Desktop/MIREX_data"
+% "/Users/me/Desktop/MIREX_data"
 %
 % Before running this script, you must have downloaded the original repositories
 % to the "mirex_path" directory, and unzipped them. If you did that, then this script
@@ -27,10 +27,6 @@ function [publictruth dset_origin] = collect_all_public_annotations(base_directo
 % Dependencies:
 %   - load_annotation.m
 
-if nargin<1,
-    base_directory = '/Users/jordan/Desktop/MIREX_data'
-end
-
 public_dir = fullfile(base_directory,'public_data');
 
 % Assemble lists of all the directories where the data live. This section is very hacky!!!
@@ -44,7 +40,7 @@ qm_dirs = {fullfile(public_dir,'Carole%20King%20Annotations'), fullfile(public_d
 % EP, i.e., data released by Ewald Peiszer
 ep_dir = fullfile(public_dir,'ep_groundtruth_txt/groundtruth');
 % Or, you could download the original data, and convert the XML files to LAB files using
-% the Ruby script xml2lab.rb.
+% the included Ruby script xml2lab.rb.
 % ep_dir = fullfile(public_dir,'ep_groundtruth/groundtruth');
 
 % IRISA

@@ -12,23 +12,23 @@ seg_measures = ismember(mirex_dset_origin,[1 2 3 4]);
 % is that we select the songs, metrics and algorithms to compare, and then choose
 % whether to take the median across all songs or across all algorithms.
 
-[asig pval a a_] = do_correlation3(megadatacube, lab_measures, indexing_info(1).manual_set, [1:9],...
+[asig pval a a_] = do_correlation(megadatacube, lab_measures, indexing_info(1).manual_set, [1:9],...
     0, 0, 1, 0, indexing_info(1).labels, 0.05);
 saveas(gcf,'./plots/fig1a.jpg')
 
-[asig pval a a_] = do_correlation3(megadatacube, lab_measures, indexing_info(1).manual_set, [1:9],...
+[asig pval a a_] = do_correlation(megadatacube, lab_measures, indexing_info(1).manual_set, [1:9],...
     0, 1, 0, 0, indexing_info(1).labels, 0.05);
 saveas(gcf,'./plots/fig1b.jpg')
 
-[asig pval a a_] = do_correlation3(megadatacube, seg_measures, indexing_info(2).manual_set, [1:9],...
+[asig pval a a_] = do_correlation(megadatacube, seg_measures, indexing_info(2).manual_set, [1:9],...
     0, 0, 1, 0, indexing_info(2).labels, 0.05);
 saveas(gcf,'./plots/fig2a.jpg')
 
-[asig pval a a_] = do_correlation3(megadatacube, seg_measures, indexing_info(2).manual_set, [1:9],...
+[asig pval a a_] = do_correlation(megadatacube, seg_measures, indexing_info(2).manual_set, [1:9],...
     0, 1, 0, 0, indexing_info(2).labels, 0.05);
 saveas(gcf,'./plots/fig2b.jpg')
 
-[asig pval a a_] = do_correlation3_fig3_only(megadatacube, lab_measures, [indexing_info(1).manual_set indexing_info(2).manual_set], [1:9], 0, 1, 0, 0, indexing_info(2).all_labels([indexing_info(1).manual_set indexing_info(2).manual_set]), 1, indexing_info(3).manual_set, indexing_info(3).labels);
+[asig pval a a_] = do_correlation_fig3_only(megadatacube, lab_measures, [indexing_info(1).manual_set indexing_info(2).manual_set], [1:9], 0, 1, 0, 0, indexing_info(2).all_labels([indexing_info(1).manual_set indexing_info(2).manual_set]), 1, indexing_info(3).manual_set, indexing_info(3).labels);
 saveas(gcf,'./plots/fig3.jpg')
 
 
@@ -37,27 +37,27 @@ do blah
 
 % Are the trends qualitatively similar across datasets?
 % Fig 1a
-figure,[asig pval a a_] = do_correlation3(megadatacube, lab_measures, indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
-figure,[asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,1), indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
-figure,[asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,3), indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
-figure,[asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,4), indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
+figure,[asig pval a a_] = do_correlation(megadatacube, lab_measures, indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
+figure,[asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,1), indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
+figure,[asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,3), indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
+figure,[asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,4), indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
 % Fig 1b
-figure, [asig pval a a_] = do_correlation3(megadatacube, lab_measures, sind_manual1, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
-figure, [asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,1), indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
-figure, [asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,3), indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
-figure, [asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,4), indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, lab_measures, sind_manual1, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,1), indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,3), indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,4), indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
 % Fig 2a
-figure, [asig pval a a_] = do_correlation3(megadatacube, seg_measures, sind_manual2, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,1), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,2), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,3), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,4), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, seg_measures, sind_manual2, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,1), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,2), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,3), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,4), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
 % Fig 2b
-figure, [asig pval a a_] = do_correlation3(megadatacube, seg_measures, sind_manual2, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,1), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,2), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,3), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation3(megadatacube, ismember(mirex_dset_origin,4), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, seg_measures, sind_manual2, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,1), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,2), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,3), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,4), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
 
 
 % "Does this indicate that the algorithms are better at boundary precision than recall? In fact, the opposite is the case: average bp6 bp.5 was simply consistently worse for most algorithms."

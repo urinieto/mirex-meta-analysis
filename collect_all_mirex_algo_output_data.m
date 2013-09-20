@@ -30,10 +30,6 @@ function mrxoutput = collect_all_mirex_algo_output_data(base_directory, dsets, a
 % Dependencies:
 %   - load_annotation.m
 
-
-if nargin<1,
-    base_directory = '/Users/jordan/Desktop/MIREX_data';
-end
 if nargin<2,
     dsets = {'mrx09','mrx10_1','mrx10_2','sal'};
 end

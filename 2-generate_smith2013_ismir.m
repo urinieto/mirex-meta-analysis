@@ -17,12 +17,26 @@
 % Name the MIREX datasets and algorithms desired.
 dsets = {'mrx09','mrx10_1','mrx10_2','sal'};
 algos = {'KSP1','KSP2','KSP3','MHRAF1','OYZS1','SBV1','SMGA1','SMGA2','SP1'};
-base_directory = '/Users/jordan/Documents/classes/mirex_data/2012';
-base_directory = '/Users/jordan/Desktop/MIREX_data';
-% You should get a copy of the evalution scripts in the Code.SoundSoftware
-% repository. Again, please see the README...
-addpath('/Users/jordan/Documents/structural_analysis_evaluation')
 
+% YOU MUST SET THE FOLLOWING PATH YOURSELF!
+% Set it to be the same as the path given at the top of '1-get_mirex_estimates.rb'.
+base_directory = '/Users/me/Desktop/MIREX_data';
+
+% You should get a copy of the evalution scripts in the Code.SoundSoftware
+% repository. Wherever you put it, set the following path accordingly:
+addpath('/Users/me/Desktop/whereiputmymatlabfiles/structural_analysis_evaluation')
+
+% Check that we have access to the correct dependencies.
+
+if exist('compare_structures.m')~=2,
+    fprintf('I could not locate ''compare_structures.m'', part of the Structural Analysis Evaluation project. Please read the help for this file before proceeding.\n')
+end
+if exist('load_annotation.m')~=2,
+    fprintf('I could not locate ''load_annotation.m'', part of the Structural Analysis Evaluation project. Please read the help for this file before proceeding.\n')
+end
+if exist('collect_all_mirex_annotations')~=2,
+    fprintf('I could not locate ''collect_all_mirex_annotations.m'', which should be in the same folder as this file. Something really screwed up has happened, clearly! Please read the help for this file before proceeding.\n')
+end
 
 %%
 % STEP 1: Download data from MIREX website:

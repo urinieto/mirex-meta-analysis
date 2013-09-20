@@ -8,7 +8,7 @@ function [data dset_origin] = collect_all_mirex_annotations(base_directory, dset
 %
 % BASE_DIRECTORY should be the "mirex_path" specified in "get_mirex_estimates.rb",
 % or whatever directory contains all the downloaded MIREX data. For example:
-% "/Users/jordan/Desktop/MIREX_data"
+% "/Users/me/Desktop/MIREX_data"
 %
 % DSETS should contain the names of the datasets. The default value is all of them:
 %   {'mrx09','mrx10_1','mrx10_2','sal'}
@@ -28,10 +28,6 @@ function [data dset_origin] = collect_all_mirex_annotations(base_directory, dset
 %
 % Dependencies:
 %   - load_annotation.m
-
-if nargin<1,
-    base_directory = '/Users/jordan/Desktop/MIREX_data';
-end
 
 % YEAR(i).NAMES will contain the NAMES of all the individual song files from YEAR i.
 year = {};

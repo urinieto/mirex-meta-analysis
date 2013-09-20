@@ -1,7 +1,8 @@
 require "CSV"
 require "open-uri"
 # require "simplexml"
-mirex_path = "/Users/jordan/Desktop/MIREX_data"    # EDIT THIS TO BE YOUR OWN DESIRED PATH
+mirex_path = "/Users/me/Desktop/MIREX_data"    # EDIT THIS TO BE YOUR OWN DESIRED PATH.
+                                               # IT WILL NEED TO HOLD ROUGHLY 70 MB OF DATA.
 
 def url_download(uri, filename=".")
     tmp = File.open(filename,'w')
