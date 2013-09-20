@@ -22,7 +22,7 @@ NOTE: We recommend making this the "./mirex_data" path, since some of the data i
 5. Unzip all the folders that you obtained.
 	Note: in this version, one of the repositories, the Ewald Peiszer repository, is included already as a zip file ("ep_groundtruth_txt.zip"). Please move this to 
 
-6. Run the Matlab script "2-generate_smith2013_ismir" and wait for all the data to be assembled, and for the figures to be generated.
+6. Run the Matlab script "2-generate_smith2013_ismir" and wait for all the data to be assembled, and for the figures to be generated. They will appear in "./plots". This repository includes what those pictures *should* look like. Hopefully you overwrite them with exact replicas.
 
 7. You're done! Hey, that wasn't so bad.
 
