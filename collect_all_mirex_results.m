@@ -52,3 +52,4 @@ for k=1:length(dsets),
         end
     end
 end
+fprintf('Oh by the way, I just collected all the results spreadsheets into a data structure. That was fast.\n\n')

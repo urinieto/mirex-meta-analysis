@@ -1,7 +1,7 @@
 require "CSV"
 require "open-uri"
 # require "simplexml"
-mirex_path = "/Users/me/Desktop/MIREX_data"    # EDIT THIS TO BE YOUR OWN DESIRED PATH.
+mirex_path = "/Users/jordan/Desktop/MIREX_data"    # EDIT THIS TO BE YOUR OWN DESIRED PATH.
                                                # IT WILL NEED TO HOLD ROUGHLY 70 MB OF DATA.
 
 def url_download(uri, filename=".")
@@ -48,6 +48,8 @@ end
 # Define list of algorithms and datasets:
 algos = ["SP1", "SMGA2", "MHRAF1", "SMGA1", "SBV1", "KSP2", "OYZS1", "KSP3", "KSP1"]
 datasets = ["mrx09", "mrx10_1", "mrx10_2", "sal"]
+year = "2012"
+puts "Thanks for starting the script! Stay tuned for periodic updates."
 
 # Create appropriate directory tree and download CSV files:
 puts("Downloading CSV files...\n")
@@ -61,10 +63,15 @@ datasets.each do |dset|
         Dir.mkdir(algo_path) unless File.directory?(algo_path)
         # Download the CSV file to this directory:
         algocsvpath = File.join(mirex_path,dset,algo,"per_track_results.csv")
-        csv_path = File.join("http://nema.lis.illinois.edu/nema_out/mirex2012/results/struct",dset,algo,"per_track_results.csv")
+        csv_path = File.join("http://nema.lis.illinois.edu/nema_out/mirex",year,"/results/struct",dset,algo,"per_track_results.csv")
         url_download(csv_path, algocsvpath)
     end
 end
+
+puts "..done with that."
+
+puts "Now we will download all the files output by each algorithm. This could take a while depending on your connection."
+puts "Since this script points to " + datasets.length.to_s + " datasets and " + algos.length.to_s + " algorithms, you should expect to wait however long it takes between each of the next lines to appear, times " + (datasets.length*algos.length).to_s + "."
 
 # Read each CSV file and download all the json files it points to:
 datasets.each do |dset|
@@ -77,7 +84,7 @@ datasets.each do |dset|
         # For each line in the spreadsheet, extract the songid and download the corresponding json document.
         csv_data.each do |line|
             song_id = line[1]
-            url = "http://nema.lis.illinois.edu/nema_out/mirex2012/results/struct/" + dset + "/" + algo.downcase + "segments" + song_id.delete("_") + ".js"
+            url = "http://nema.lis.illinois.edu/nema_out/mirex" + year + "/results/struct/" + dset + "/" + algo.downcase + "segments" + song_id.delete("_") + ".js"
             download_path = File.join(download_folder,song_id + ".js")
             # download_path = download_folder + "/" + song_id + ".js"
             url_download(url, download_path)
@@ -86,12 +93,19 @@ datasets.each do |dset|
     puts("Done with " + dset + " dataset!\n")
 end
 
+puts "..done with that."
+
+puts "Now, a much faster step: turning all the json files you downloaded into simpler text files."
 # Scan for all the json files, and convert each one into two text files, one for the algorithm output, one for the annotation:
 all_json_files = Dir.glob(File.join(mirex_path,"*","*","*.js"))
 all_json_files.each do |file|
     convert_file(file)
+    puts file
 end
 
+puts "..done with that."
+
+puts "Now, PART 2 of the script: we download all the zip files (from various websites) that contain the public collections of ground truth files. This will only take a couple minutes, depending on connection speed (it's about 4 MB total)."
 
 
 # # # #         PART 2:  GET (AND CONVERT) THE ANNOTATION DATA PUBLISHED BY OTHERS
@@ -109,3 +123,7 @@ end
 
 # # # #         NOW, PLEASE EXIT THE SCRIPT, AND UNZIP ALL THOSE PACKAGES.
 # # # #         WHEN YOU'RE DONE, GO ONTO THE PARENT MATLAB FILE TO RUN THE ANALYSES.
+puts "..done with that.\n\n"
+puts "Script apppears to have ended successfully. All files were downloaded and saved to " + public_data_path +"."
+puts "To continue please unpack all zip files, start MATLAB, and run 2-generate_smith2013_ismir.m. You can read more on README."
+puts "Important: be sure that the zip files unpack into the correct file structure. Again, see README for details."

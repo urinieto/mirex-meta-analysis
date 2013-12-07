@@ -29,6 +29,9 @@ function [publictruth dset_origin] = collect_all_public_annotations(base_directo
 
 public_dir = fullfile(base_directory,'public_data');
 
+fprintf('OK, now we will be collecting all the public annotations into a data structure. You SHOULD expect a number of errors here, because some of the source annotations you just downloaded are actually empty. Namely, a bunch of the AIST ones: \nAIST.RWC-MDB-C-2001.CHORUS/RM-C025_A.CHORUS.TXT\nAIST.RWC-MDB-C-2001.CHORUS/RM-C025_D.CHORUS.TXT\nAIST.RWC-MDB-G-2001.CHORUS/RM-G040.CHORUS.TXT\nAIST.RWC-MDB-G-2001.CHORUS/RM-G042.CHORUS.TXT\nEtc... a whole bunch.\n')
+fprintf('It might also tell you it cannot read some README files. Do not worry about this. Finally, you will also see the script notify you that it has fixed some of the points in some Beatles annotations. This is because sometimes the numbers in the file are actually out of order. You can look up one of the songs to see an example. It is not really a big issue.\n\n')
+
 % Assemble lists of all the directories where the data live. This section is very hacky!!!
 
 % RWC
@@ -202,3 +205,5 @@ for i=1:length(publictruth),
         fprintf('Fixed order of time points in this file:%s\n',publictruth(i).file)
     end
 end
+
+fprintf('Phew, OK! If you are worried about these errors, be sure to read the comments printed just before it.\n\n')

@@ -4,7 +4,8 @@ tic
 unmatched_mirdata = find(max(transpose(pwf))<.99);
 unmatched_pubdata = find(max(pwf)<.99);
 % This is how many more songs we have to match.
-length(unmatched_mirdata)
+
+fprintf('FYI: there are %i songs in this dataset that have not yet been matched.\n',length(unmatched_mirdata))
 if ~isempty(unmatched_mirdata) & ~isempty(unmatched_pubdata),
 
     for i=row(unmatched_mirdata),
@@ -15,7 +16,7 @@ if ~isempty(unmatched_mirdata) & ~isempty(unmatched_pubdata),
                 pwf(i,j) = res(1);
             end
         end
-        toc
+        % toc
     end
 end
 

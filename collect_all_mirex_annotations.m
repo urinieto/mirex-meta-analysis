@@ -57,6 +57,8 @@ for i=1:length(csv_files),
     end
 end
 
+fprintf('OK, done with that.\n\n')
+
 % For every dataset (DSET), look through all the names (YEAR(k).NAMES), and load the annotation.
 fprintf('About to load all the ground truth files published by MIREX. If you see lots of errors, please ensure that the files exist in the correct location, and that the function ''load_annotation'' exists.\n')
 for k=1:length(dsets),
@@ -81,6 +83,8 @@ for k=1:length(dsets),
         end
     end
 end
+
+fprintf('OK, done with that.\n\n')
 
 % It can be useful to have a separate structure pointing to the index of the dataset.
 % This is an optional output of the function.

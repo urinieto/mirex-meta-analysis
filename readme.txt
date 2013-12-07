@@ -20,12 +20,205 @@ NOTE: We recommend making this the "./mirex_data" path, since some of the data i
 4. Run the Ruby script "1-get_mirex_estimates.rb" and wait a while for all the data to download.
 
 5. Unzip all the folders that you obtained.
-	Note: in this version, one of the repositories, the Ewald Peiszer repository, is included already as a zip file ("ep_groundtruth_txt.zip"). Please move this to 
+	Note: in this version, one of the repositories, the Ewald Peiszer repository, is included already as a zip file ("ep_groundtruth_txt.zip"). If you set "./mirex_data" as the download path in Step 3, then just unzip it here. Otherwise, move it to wherever the rest of the zips are.
+	Note: due to inconsistencies in how different zipping programs handle things, the folder structure upon unzipping may be inconsistent. Please look at the Ground Truth Directory map below and make sure your files unzip in the same way. If they don't, you'll have to move things around until the structure matches.
 
 6. Run the Matlab script "2-generate_smith2013_ismir" and wait for all the data to be assembled, and for the figures to be generated. They will appear in "./plots". This repository includes what those pictures *should* look like. Hopefully you overwrite them with exact replicas.
 
 7. You're done! Hey, that wasn't so bad.
 
+
+===== Known issues =====
+
+1. Bug in how CSV files are parsed in Ruby v.1.9.3. Seems to work fine using an older version: try 1.8.7.
+
+
+===== Ground Truth Directory map =====
+
+When your ground truth is all downloaded and unzipped, it should look like this:
+
+*
+|-- AIST.RWC-MDB-C-2001.CHORUS
+|-- AIST.RWC-MDB-G-2001.CHORUS
+|-- AIST.RWC-MDB-J-2001.CHORUS
+|-- AIST.RWC-MDB-P-2001.CHORUS
+|-- Carole%20King%20Annotations
+|   |-- all
+|   |   |-- Carole King
+|   |   |   |-- Tapestry
+|   |-- chordlab
+|   |   |-- Carole King
+|   |   |   |-- Tapestry
+|   |-- keylab
+|   |   |-- Carole King
+|   |   |   |-- Tapestry
+|   |-- seglab
+|   |   |-- Carole King
+|   |   |   |-- Tapestry
+|-- ep_groundtruth
+|   |-- groundtruth
+|-- ep_groundtruth_txt
+|   |-- groundtruth
+|-- IRISA.RWC-MDB-P-2001.BLOCKS
+|-- IRISA.RWC-MDB-P-2012.SEMLAB_v003_full
+|-- IRISA.RWC-MDB-P-2012.SEMLAB_v003_reduced
+|-- Michael%20Jackson%20Annotations
+|   |-- all
+|   |   |-- Michael Jackson
+|   |   |   |-- Essential Michael Jackson [Disc 1]
+|   |   |   |-- Essential Michael Jackson [Disc 2]
+|   |-- seglab
+|   |   |-- Michael Jackson
+|   |   |   |-- Essential Michael Jackson [Disc 1]
+|   |   |   |-- Essential Michael Jackson [Disc 2]
+|-- Queen%20Annotations
+|   |-- all
+|   |   |-- Queen
+|   |   |   |-- Greatest Hits I
+|   |   |   |-- Greatest Hits II
+|   |   |   |-- Greatest Hits III
+|   |-- chordlab
+|   |   |-- Queen
+|   |   |   |-- Greatest Hits I
+|   |   |   |-- Greatest Hits II
+|   |-- keylab
+|   |   |-- Queen
+|   |   |   |-- Greatest Hits I
+|   |   |   |-- Greatest Hits II
+|   |-- seglab
+|   |   |-- Queen
+|   |   |   |-- Greatest Hits I
+|   |   |   |-- Greatest Hits II
+|   |   |   |-- Greatest Hits III
+|-- SALAMI_data_v1.2
+|   |-- data
+|   |   |-- 2
+|   |   |   |-- parsed
+|   |   |-- 4
+|   |   |   |-- parsed
+|   |   |-- 6
+|   |   |   |-- parsed
+|   |   |-- 8
+|   |   |   |-- parsed
+|   |   .
+|   |   .
+|   |   .
+|   |   |-- 1648
+|   |   |   |-- parsed
+|   |   |-- 1650
+|   |   |   |-- parsed
+|   |   |-- 1652
+|   |   |   |-- parsed
+|   |   |-- 1654
+|   |   |   |-- parsed
+|-- The%20Beatles%20Annotations
+|   |-- all
+|   |   |-- The Beatles
+|   |   |   |-- 01_-_Please_Please_Me
+|   |   |   |-- 02_-_With_the_Beatles
+|   |   |   |-- 03_-_A_Hard_Day's_Night
+|   |   |   |-- 04_-_Beatles_for_Sale
+|   |   |   |-- 05_-_Help!
+|   |   |   |-- 06_-_Rubber_Soul
+|   |   |   |-- 07_-_Revolver
+|   |   |   |-- 08_-_Sgt._Pepper's_Lonely_Hearts_Club_Band
+|   |   |   |-- 09_-_Magical_Mystery_Tour
+|   |   |   |-- 10CD1_-_The_Beatles
+|   |   |   |-- 10CD2_-_The_Beatles
+|   |   |   |-- 11_-_Abbey_Road
+|   |   |   |-- 12_-_Let_It_Be
+|   |-- beat
+|   |   |-- The Beatles
+|   |   |   |-- 01_-_Please_Please_Me
+|   |   |   |-- 02_-_With_the_Beatles
+|   |   |   |-- 03_-_A_Hard_Day's_Night
+|   |   |   |-- 04_-_Beatles_for_Sale
+|   |   |   |-- 05_-_Help!
+|   |   |   |-- 06_-_Rubber_Soul
+|   |   |   |-- 07_-_Revolver
+|   |   |   |-- 08_-_Sgt._Pepper's_Lonely_Hearts_Club_Band
+|   |   |   |-- 09_-_Magical_Mystery_Tour
+|   |   |   |-- 10CD1_-_The_Beatles
+|   |   |   |-- 10CD2_-_The_Beatles
+|   |   |   |-- 11_-_Abbey_Road
+|   |   |   |-- 12_-_Let_It_Be
+|   |-- chordlab
+|   |   |-- The Beatles
+|   |   |   |-- 01_-_Please_Please_Me
+|   |   |   |-- 02_-_With_the_Beatles
+|   |   |   |-- 03_-_A_Hard_Day's_Night
+|   |   |   |-- 04_-_Beatles_for_Sale
+|   |   |   |-- 05_-_Help!
+|   |   |   |-- 06_-_Rubber_Soul
+|   |   |   |-- 07_-_Revolver
+|   |   |   |-- 08_-_Sgt._Pepper's_Lonely_Hearts_Club_Band
+|   |   |   |-- 09_-_Magical_Mystery_Tour
+|   |   |   |-- 10CD1_-_The_Beatles
+|   |   |   |-- 10CD2_-_The_Beatles
+|   |   |   |-- 11_-_Abbey_Road
+|   |   |   |-- 12_-_Let_It_Be
+|   |-- keylab
+|   |   |-- The Beatles
+|   |   |   |-- 01_-_Please_Please_Me
+|   |   |   |-- 02_-_With_the_Beatles
+|   |   |   |-- 03_-_A_Hard_Day's_Night
+|   |   |   |-- 04_-_Beatles_for_Sale
+|   |   |   |-- 05_-_Help!
+|   |   |   |-- 06_-_Rubber_Soul
+|   |   |   |-- 07_-_Revolver
+|   |   |   |-- 08_-_Sgt._Pepper's_Lonely_Hearts_Club_Band
+|   |   |   |-- 09_-_Magical_Mystery_Tour
+|   |   |   |-- 10CD1_-_The_Beatles
+|   |   |   |-- 10CD2_-_The_Beatles
+|   |   |   |-- 11_-_Abbey_Road
+|   |   |   |-- 12_-_Let_It_Be
+|   |-- seglab
+|   |   |-- The Beatles
+|   |   |   |-- 01_-_Please_Please_Me
+|   |   |   |-- 02_-_With_the_Beatles
+|   |   |   |-- 03_-_A_Hard_Day's_Night
+|   |   |   |-- 04_-_Beatles_for_Sale
+|   |   |   |-- 05_-_Help!
+|   |   |   |-- 06_-_Rubber_Soul
+|   |   |   |-- 07_-_Revolver
+|   |   |   |-- 08_-_Sgt._Pepper's_Lonely_Hearts_Club_Band
+|   |   |   |-- 09_-_Magical_Mystery_Tour
+|   |   |   |-- 10CD1_-_The_Beatles
+|   |   |   |-- 10CD2_-_The_Beatles
+|   |   |   |-- 11_-_Abbey_Road
+|   |   |   |-- 12_-_Let_It_Be
+|-- TUT
+|   |-- 01_-_Please_please_me_1963
+|   |-- 02_-_With_The_Beatles_1963
+|   |-- 03_-_A_hard_days_night_1964
+|   |-- 04_-_Beatles_for_sale_1964
+|   |-- 05_-_Help_1965
+|   |-- 06_-_Rubber_Soul.bak.bak
+|   |-- 07_-_Revolver
+|   |-- 08_-_Sgt._Pepper's_Lonely_Hearts_Club_Band
+|   |-- 09_-_Magical_Mystery_Tour
+|   |-- 10_-_The_Beatles_(White_Album)_CD1
+|   |-- 10_-_The_Beatles_(White_Album)_CD2
+|   |-- 11_-_Abbey_Road
+|   |-- 12_-_Let_it_Be
+|   |-- LICENSE
+|   |-- README
+|-- Zweieck%20Annotations
+    |-- all
+    |   |-- Zweieck
+    |   |   |-- Zwielicht
+    |-- beat
+    |   |-- Zweieck
+    |   |   |-- Zwielicht
+    |-- chordlab
+    |   |-- Zweieck
+    |   |   |-- Zwielicht
+    |-- keylab
+    |   |-- Zweieck
+    |   |   |-- Zwielicht
+    |-- seglab
+        |-- Zweieck
+            |-- Zwielicht
 
 
 ===== The MIT License (MIT) =====

@@ -51,9 +51,12 @@ rel(3).rel_pub = find(public_dset_origin(:,1)==1);
 rel(4).rel_mir = find(mirex_dset_origin==4);
 rel(4).rel_pub = find(public_dset_origin(:,1)==6);
 
-metrics = [2 2 2 2];
+% The metric is the boundary f-measure. The quality threshold is the minimum value of this metric that we consider to indicate a match. 0.99 is really high!
 quality_threshes = [.99 0.99 0.99 0.99];
 
+fprintf('OK, we are going to look through each dataset 3 times, each time with a different length threshold. This is because the matching algorithm is slow and brute-force, and we want to speed it up.\n')
+fprintf('The first look, we consider every song within 5 seconds of the same length as the target song, and compare the structures.\n')
+fprintf('The second and third passes consider deviations of 10 and 15 seconds, respectively. But we ignore songs that have already been matched, which speeds things up, see?\n')
 for K=1:4,
     rel_mir = rel(K).rel_mir;
     rel_pub = rel(K).rel_pub;
@@ -68,21 +71,27 @@ for K=1:4,
 
     % Run the follow script, optionally several times with increasing values of length_thresh to search more widely.
     % (We reduce the search space each time, so using a longer threshold becomes more and more feasible on later interations.)
+    fprintf('Looking at dataset %i. First pass.\n',K)
     length_thresh = 5;
     [mir2pub pub2mir pwf] = match_mirex_to_public_data_macro(mir2pub, pub2mir, pwf, mirex_truth, public_truth, rel_mir, rel_pub, length_thresh, quality_thresh);
+    fprintf('Looking at dataset %i. Second pass.\n',K)
     length_thresh = 10;
     [mir2pub pub2mir pwf] = match_mirex_to_public_data_macro(mir2pub, pub2mir, pwf, mirex_truth, public_truth, rel_mir, rel_pub, length_thresh, quality_thresh);
+    fprintf('Looking at dataset %i. Third pass.\n',K)
     length_thresh = 15;
     [mir2pub pub2mir pwf] = match_mirex_to_public_data_macro(mir2pub, pub2mir, pwf, mirex_truth, public_truth, rel_mir, rel_pub, length_thresh, quality_thresh);
     
     % The variable P will contain the quality of the matches between all the songs tested.
     P(K).pwf = pwf;
 end
+fprintf('\nOK, done matching! Phew.\n')
 
 % That was a lot of searching... We do not want to do it twice! Save the output.
+fprintf('Saving the output to ./match_mirex_to_public_data_results so that you do not have to repeat this step again.\n\n')
 save('./match_mirex_to_public_data_results','pub2mir','mir2pub','P');
 
 
+fprintf('Here is the first thing reported in the article: a table of how many matches you obtained.\n\n')
 % % Bonus work for Table 2: 
 % How many MIREX songs did I find a match for in each category?
 fprintf('MIREX dataset......number of pieces.....number identified\n\n')

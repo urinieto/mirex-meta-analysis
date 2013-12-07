@@ -12,72 +12,200 @@ seg_measures = ismember(mirex_dset_origin,[1 2 3 4]);
 % is that we select the songs, metrics and algorithms to compare, and then choose
 % whether to take the median across all songs or across all algorithms.
 
+fprintf('We are making Figure 1a now.\n')
+
 [asig pval a a_] = do_correlation(megadatacube, lab_measures, indexing_info(1).manual_set, [1:9],...
     0, 0, 1, 0, indexing_info(1).labels, 0.05);
 saveas(gcf,'./plots/fig1a.jpg')
+
+fprintf('We are making Figure 1b now.\n')
 
 [asig pval a a_] = do_correlation(megadatacube, lab_measures, indexing_info(1).manual_set, [1:9],...
     0, 1, 0, 0, indexing_info(1).labels, 0.05);
 saveas(gcf,'./plots/fig1b.jpg')
 
+fprintf('We are making Figure 2a now. (This one usually takes a while.)\n')
+
 [asig pval a a_] = do_correlation(megadatacube, seg_measures, indexing_info(2).manual_set, [1:9],...
     0, 0, 1, 0, indexing_info(2).labels, 0.05);
 saveas(gcf,'./plots/fig2a.jpg')
+
+fprintf('We are making Figure 2b now.)\n')
 
 [asig pval a a_] = do_correlation(megadatacube, seg_measures, indexing_info(2).manual_set, [1:9],...
     0, 1, 0, 0, indexing_info(2).labels, 0.05);
 saveas(gcf,'./plots/fig2b.jpg')
 
+fprintf('We are making Figure 3 now.\n')
+
 [asig pval a a_] = do_correlation_fig3_only(megadatacube, lab_measures, [indexing_info(1).manual_set indexing_info(2).manual_set], [1:9], 0, 1, 0, 0, indexing_info(2).all_labels([indexing_info(1).manual_set indexing_info(2).manual_set]), 1, indexing_info(3).manual_set, indexing_info(3).labels);
 saveas(gcf,'./plots/fig3.jpg')
+
+
+
+% Now we are done making figures. The following sequences of commands generate output to validate some of the statements in the article.
+
+
+
+% Section 3.1: "Does this indicate that the algorithms are better at boundary precision than recall? In fact, the opposite is the case: average bp6 bp.5 was simply consistently worse for most algorithms."
+% For all algos:
+mean(median(megadatacube(:,indexing_info(2).manual_set([3 4 7 8]),:),3),1)
+% For each algo:
+mean(megadatacube(:,indexing_info(2).manual_set([3 4 7 8]),:),1)
+% Recall (the second pair of values) surpass precision (the first pair of values) for most of the algorithm runs. There are two exceptions: algorithms 4 (R a little less than P) and 5 (P much better than R).
+
+
+% Are the trends qualitatively similar across datasets? (Section 3.1: "...the findings of this section were consistent across the datasets, albeit with some variation in significance levels.")
+% % % Fig 1a
+% All the datasets:
+figure,[asig pval a a_] = do_correlation(megadatacube, lab_measures, indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
+% Isophonics et al.:
+figure,[asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,1), indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
+% RWC (AIST):
+figure,[asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,3), indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
+% SALAMI:
+figure,[asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,4), indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
+% % % Fig 1b
+% All the datasets:
+figure, [asig pval a a_] = do_correlation(megadatacube, lab_measures, indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
+% Isophonics et al.:
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,1), indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
+% RWC (AIST):
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,3), indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
+% SALAMI:
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,4), indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
+% % % Fig 2a
+% All the datasets:
+figure, [asig pval a a_] = do_correlation(megadatacube, seg_measures, indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
+% Isophonics et al.:
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,1), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
+% RWC (INRIA):
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,2), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
+% RWC (AIST):
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,3), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
+% SALAMI:
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,4), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
+% % % Fig 2b
+% All the datasets:
+figure, [asig pval a a_] = do_correlation(megadatacube, seg_measures, indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
+% Isophonics et al.:
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,1), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
+% RWC (INRIA):
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,2), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
+% RWC (AIST):
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,3), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
+% SALAMI:
+figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,4), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
+
+
+% Section 3.2: "While the middle half of the values of nsa [number of segments in annotation] ranges from 7 and 13 segments, the middle values for nse [number of segments for estimated description] for most algorithms range from 11 to 20 segments. The two exceptions are MHRAF and OYZS [algorithms 4 and 5], for which both msle and nse match the distributions seen in the annotations."
+
+% Index 17 gives the number of segments in the annotation; 21 gives the number of segments in the estimated description of the algorithm.
+% Boxplot shows general trend of overestimating number of segments.
+H = boxplot(megadatacube(:,[17 21],:))
+% Take the middle half of the data for annotated and estimated segments. Look at the range.
+
+tmp = sort(megadatacube(:,17,:));
+tmp = sort(tmp(:));
+tmp(round(length(tmp)/4)), tmp(3*round(length(tmp)/4))
+% The middle half of the annotated descriptions have 7 to 13 segments.
+
+tmp2 = sort(megadatacube(:,21,:));
+[tmp2(round(length(tmp2)/4),:,:), tmp2(round(length(tmp2)*3/4),:,:)]
+% Setting aside algorithms 4 and 5, the others all have middle ranges of roughly 11 to 24.
+tmp2 = sort(tmp2(:));
+tmp2(round(length(tmp2)/4)), tmp2(3*round(length(tmp2)/4))
+% Averaging the other algorithms together, the middle range is exactly 10 to 20.
+
+
+
 
 
 do blah
 % % % % % % % % % % % % The rest of this is still under construction, so I have inserted an error in the previous line to halt the script.
 
-% Are the trends qualitatively similar across datasets?
-% Fig 1a
-figure,[asig pval a a_] = do_correlation(megadatacube, lab_measures, indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
-figure,[asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,1), indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
-figure,[asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,3), indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
-figure,[asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,4), indexing_info(1).manual_set, [1:9], -1, 0, 1, -1, indexing_info(1).labels, 1);
-% Fig 1b
-figure, [asig pval a a_] = do_correlation(megadatacube, lab_measures, sind_manual1, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
-figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,1), indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
-figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,3), indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
-figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,4), indexing_info(1).manual_set, [1:9], -1, 1, 0, -1, indexing_info(1).labels, 1);
-% Fig 2a
-figure, [asig pval a a_] = do_correlation(megadatacube, seg_measures, sind_manual2, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,1), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,2), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,3), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,4), indexing_info(2).manual_set, [1:9], -1, 0, 1, -1, indexing_info(2).labels, 1);
-% Fig 2b
-figure, [asig pval a a_] = do_correlation(megadatacube, seg_measures, sind_manual2, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,1), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,2), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,3), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
-figure, [asig pval a a_] = do_correlation(megadatacube, ismember(mirex_dset_origin,4), indexing_info(2).manual_set, [1:9], -1, 1, 0, -1, indexing_info(2).labels, 1);
-
-
-% "Does this indicate that the algorithms are better at boundary precision than recall? In fact, the opposite is the case: average bp6 bp.5 was simply consistently worse for most algorithms."
-% For all algos:
-mean(median(megadatacube(:,sind_manual2,:),3),1)
-% For each algo:
-mean(megadatacube(:,sind_manual2,:),1)
-
-
-H = boxplot(megadatacube(:,[17 21],:))
-
-tmp = sort(megadatacube(:,17,:));
-tmp2 = sort(megadatacube(:,21,:));
-tmp2(round(length(tmp2)/4),:,:), tmp2(round(length(tmp2)*3/4),:,:)
-
-tmp2 = sort(tmp2(:));
-tmp2(round(length(tmp2)/4)), tmp2(3*round(length(tmp2)/4))
-
-
 %   %   %   %   %   %   %   %   %   %   %   ENd OF REAL WORK AREA   %   %   %   %   %   %   %   %   %   %   %   %   %
+
+
+
+% Look at best 10 and worst 10 songs in each dataset, according to PW_F metric.
+% Average results across algorithms for this one.
+unique_algorithms = [3 4 5 6 7];
+tmp = datacube;
+tmp(:,:,3) = mean(tmp(:,:,[1:3,9]),3);
+tmp(:,:,7) = mean(tmp(:,:,7:8),3);
+tmp = mean(tmp(mirex_dset_origin==1,:,unique_algorithms),3);
+[tmp1 order] = sortrows(tmp,-3);
+order1 = lab_measures(order);
+pub_songids = mir2pub(order);
+values = tmp1((pub_songids>0),3);
+filenames = {};
+for i=1:length(pub_songids),
+    if pub_songids(i)>0,
+        filenames{end+1} = public_truth(pub_songids(i)).file;
+    end
+end
+
+mirid = pub2mir(336);
+make_structure_image(mirid, miranns, MD, mirdset, X, MR)
+saveas(gcf,'./plots/MJ_dont_care.jpg')
+make_structure_image(121, miranns, MD, mirdset, X, MR)
+saveas(gcf,'./plots/play_the_game.jpg')
+
+% Plot difficulty by album:
+
+
+genres = {};
+subgenres = {};
+issalami = zeros(length(filenames),1);
+for i=1:length(filenames),
+    file = filenames{i};
+    if strfind(file,'SALAMI_data'),
+        issalami(i)=1;
+        salami_id = file(79:85);
+        salami_id = salami_id(1:strfind(salami_id,'/')-1);
+        salami_row = find(aaux.metadata{1}==str2num(salami_id));
+        genres{end+1} = cell2mat(aaux.metadata{15}(salami_row));
+        subgenres{end+1} = cell2mat(aaux.metadata{16}(salami_row));
+    end
+end
+gs = grp2idx(genres);
+subgs = grp2idx(subgenres);
+boxplot(values(find(issalami)),transpose(genres))
+axis([0.5 5.5 0 1])
+saveas(gcf,'salami_breakdown.png')
+boxplot(values(find(issalami)),transpose(subgenres),'colors',cmap(round(gs*63/6),:),'orientation','horizontal')
+
+[tmp1 tmp2] = hist(subgs,max(subgs)-1);
+tmp1 = find(tmp1>5);  % do these subgenres only
+tmp1 = ismember(subgs,tmp1);
+tmp2 = find(issalami);
+boxplot(values(tmp2(tmp1)),transpose(subgenres(tmp1)),'colors',cmap(round(gs(tmp1)*63/6),:),'orientation','horizontal')
+
+
+
+
+
+% Look at scatter plots so that we can qualitatively attribute the correlations to things (e.g., low-precision variance).
+tmpcube = mean(datacube,3);
+for i=1:4,
+    for j=i+1:5,
+        subplot(5,5,i+(j-1)*5)
+        scatter(tmpcube(:,i),tmpcube(:,j),'x')
+    end
+end
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 clf,imagesc(a.*(abs(a)>.7))
@@ -193,74 +321,6 @@ end
 
 % BoxPlot of the number of segments in each algorithm output
 boxplot(reshape(newcube(:,7,:),[length(newcube),9,1]))
-
-% Look at best 10 and worst 10 songs in each dataset, according to PW_F metric.
-% Average results across algorithms for this one.
-unique_algorithms = [3 4 5 6 7];
-tmp = datacube;
-tmp(:,:,3) = mean(tmp(:,:,[1:3,9]),3);
-tmp(:,:,7) = mean(tmp(:,:,7:8),3);
-tmp = mean(tmp(lab_measures,:,unique_algorithms),3);
-[tmp1 order] = sortrows(tmp,-3);
-order1 = lab_measures(order);
-pub_songids = X.mir2pub(order1);
-values = tmp1((pub_songids>0),3);
-filenames = {};
-for i=1:length(pub_songids),
-    if pub_songids(i)>0,
-        filenames{end+1} = X.pubanns(pub_songids(i)).file;
-    end
-end
-
-mirid = pub2mir(336);
-make_structure_image(mirid, miranns, MD, mirdset, X, MR)
-saveas(gcf,'./plots/MJ_dont_care.jpg')
-make_structure_image(121, miranns, MD, mirdset, X, MR)
-saveas(gcf,'./plots/play_the_game.jpg')
-
-% Plot difficulty by album:
-
-
-genres = {};
-subgenres = {};
-issalami = zeros(length(filenames),1);
-for i=1:length(filenames),
-    file = filenames{i};
-    if strfind(file,'SALAMI_data'),
-        issalami(i)=1;
-        salami_id = file(79:85);
-        salami_id = salami_id(1:strfind(salami_id,'/')-1);
-        salami_row = find(aaux.metadata{1}==str2num(salami_id));
-        genres{end+1} = cell2mat(aaux.metadata{15}(salami_row));
-        subgenres{end+1} = cell2mat(aaux.metadata{16}(salami_row));
-    end
-end
-gs = grp2idx(genres);
-subgs = grp2idx(subgenres);
-boxplot(values(find(issalami)),transpose(genres))
-axis([0.5 5.5 0 1])
-saveas(gcf,'salami_breakdown.png')
-boxplot(values(find(issalami)),transpose(subgenres),'colors',cmap(round(gs*63/6),:),'orientation','horizontal')
-
-[tmp1 tmp2] = hist(subgs,max(subgs)-1);
-tmp1 = find(tmp1>5);  % do these subgenres only
-tmp1 = ismember(subgs,tmp1);
-tmp2 = find(issalami);
-boxplot(values(tmp2(tmp1)),transpose(subgenres(tmp1)),'colors',cmap(round(gs(tmp1)*63/6),:),'orientation','horizontal')
-
-
-
-
-
-% Look at scatter plots so that we can qualitatively attribute the correlations to things (e.g., low-precision variance).
-tmpcube = mean(datacube,3);
-for i=1:4,
-    for j=i+1:5,
-        subplot(5,5,i+(j-1)*5)
-        scatter(tmpcube(:,i),tmpcube(:,j),'x')
-    end
-end
-
 
 
 

@@ -53,6 +53,7 @@ for i=1:length(csv_files),
         fprintf('Error opening or reading the following CSV file:\n   %s\n',csv_files{i});
     end
 end
+fprintf('OK, done with that.\n\n')
 
 
 fprintf('About to go through all the algorithm outputs and load all the predicted song descriptions. If you see lots of errors, please ensure that the files exist in the correct location.\n')
@@ -74,3 +75,4 @@ for k=1:length(dsets),
         end
     end
 end
+fprintf('OK, done with that.\n\n')

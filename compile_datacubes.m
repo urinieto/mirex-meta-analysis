@@ -96,7 +96,7 @@ for i=1:size(datacube,1)
     % It can be nice to see a progress meter... It took me about 30 seconds to compute 100 songs, and there are ~1500 songs.
     if mod(i,100)==0,
         toc
-        fprintf('Getting there. We have done %i songs so far.\n',i)
+        fprintf('Getting there. We have done %i out of %i songs so far.\n',i,size(datacube,1))
     end
 end
 fprintf('Done!\nJust tidying up now.......')
