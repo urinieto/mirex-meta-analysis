@@ -4,14 +4,20 @@ require "open-uri"
 mirex_path = "/Users/jordan/Desktop/MIREX_data"    # EDIT THIS TO BE YOUR OWN DESIRED PATH.
                                                # IT WILL NEED TO HOLD ROUGHLY 70 MB OF DATA.
 
+
+# tmp = File.open(filename,'w')
+#     tmptxt = []
+#     open(uri) {|f|
+#         f.each_line {|line| tmptxt.push(line)}
+#     }
+#     tmp.write(tmptxt)
+#     tmp.close
+#     
+
 def url_download(uri, filename=".")
-    tmp = File.open(filename,'w')
-    tmptxt = []
-    open(uri) {|f|
-        f.each_line {|line| tmptxt.push(line)}
-    }
-    tmp.write(tmptxt)
-    tmp.close
+    open(filename, 'w') do |foo|
+        foo.print open(uri).read
+    end
 end
 
 def convert_file(filename)
@@ -20,8 +26,9 @@ def convert_file(filename)
     ann_out = File.open(ann_out_file,'w')
     alg_out = File.open(alg_out_file,'w')
     text = File.open(filename,'r').readlines[1..-4].join("").split(/[\[\]]/)
-    ann = text[1]
-    alg = text[3]
+    text = File.open(filename,'r').readlines(sep=",").join("").split(/[\[\]]/)
+    ann = text[2].split(/[\{\}]/)
+    alg = text[4].split(/[\{\}]/)
     ann_out.write(json_2_text(ann))
     alg_out.write(json_2_text(alg))
     ann_out.close
@@ -30,8 +37,8 @@ end
 
 def json_2_text(json)
     txt = []
-    json = json.split("\n")
-    json.each do |line|
+    (1..json.length).step(2).to_a.each do |indx|
+        line = json[indx]
         els = line.split(",")
         # Make a LAB-style annotation (3-column):
         # txt.push([els[0].split(" ")[-1].to_f, els[1].split(" ")[-1].to_f, els[2].split("\"")[-1]].join("\t"))
@@ -52,6 +59,7 @@ year = "2012"
 puts "Thanks for starting the script! Stay tuned for periodic updates."
 
 # Create appropriate directory tree and download CSV files:
+Dir.mkdir(mirex_path) unless File.directory?(mirex_path)
 puts("Downloading CSV files...\n")
 datasets.each do |dset|
     # Make dataset directory:
@@ -63,7 +71,7 @@ datasets.each do |dset|
         Dir.mkdir(algo_path) unless File.directory?(algo_path)
         # Download the CSV file to this directory:
         algocsvpath = File.join(mirex_path,dset,algo,"per_track_results.csv")
-        csv_path = File.join("http://nema.lis.illinois.edu/nema_out/mirex",year,"/results/struct",dset,algo,"per_track_results.csv")
+        csv_path = File.join(("http://nema.lis.illinois.edu/nema_out/mirex"+year),"/results/struct",dset,algo,"per_track_results.csv")
         url_download(csv_path, algocsvpath)
     end
 end
@@ -78,11 +86,12 @@ datasets.each do |dset|
     algos.each do |algo|
         puts( "Starting to download "+dset+ " dataset for " + algo + " algorithm...\n")
         algocsvpath = File.join(mirex_path,dset,algo,"per_track_results.csv")
-        csv_data = CSV.read(algocsvpath)
+        csv_data = File.read(algocsvpath).split("\n")
         header = csv_data.delete_at(0)
         download_folder = File.join(mirex_path,dset,algo)
         # For each line in the spreadsheet, extract the songid and download the corresponding json document.
         csv_data.each do |line|
+            line = line.split(",")
             song_id = line[1]
             url = "http://nema.lis.illinois.edu/nema_out/mirex" + year + "/results/struct/" + dset + "/" + algo.downcase + "segments" + song_id.delete("_") + ".js"
             download_path = File.join(download_folder,song_id + ".js")
@@ -111,7 +120,7 @@ puts "Now, PART 2 of the script: we download all the zip files (from various web
 # # # #         PART 2:  GET (AND CONVERT) THE ANNOTATION DATA PUBLISHED BY OTHERS
 
 # Download and unzip all public annotations
-list_of_db_urls = ["http://staff.aist.go.jp/m.goto/RWC-MDB/AIST-Annotation/AIST.RWC-MDB-P-2001.CHORUS.zip", "http://staff.aist.go.jp/m.goto/RWC-MDB/AIST-Annotation/AIST.RWC-MDB-C-2001.CHORUS.zip", "http://staff.aist.go.jp/m.goto/RWC-MDB/AIST-Annotation/AIST.RWC-MDB-J-2001.CHORUS.zip", "http://staff.aist.go.jp/m.goto/RWC-MDB/AIST-Annotation/AIST.RWC-MDB-G-2001.CHORUS.zip", "http://www.music.mcgill.ca/~jordan/salami/releases/SALAMI_data_v1.2.zip", "http://www.ifs.tuwien.ac.at/mir/audiosegmentation/dl/ep_groundtruth_excl_Paulus.zip", "http://musicdata.gforge.inria.fr/IRISA.RWC-MDB-P-2012.SEMLAB_v003_full.zip", "http://musicdata.gforge.inria.fr/IRISA.RWC-MDB-P-2012.SEMLAB_v003_reduced.zip", "http://musicdata.gforge.inria.fr/IRISA.RWC-MDB-P-2001.BLOCKS_v001.zip", "http://www.isophonics.net/files/annotations/The%20Beatles%20Annotations.tar.gz", "http://www.isophonics.net/files/annotations/Carole%20King%20Annotations.tar.gz", "http://www.isophonics.net/files/annotations/Queen%20Annotations.tar.gz", "http://www.isophonics.net/files/annotations/Michael%20Jackson%20Annotations.tar.gz", "http://www.isophonics.net/files/annotations/Zweieck%20Annotations.tar.gz", "http://www.cs.tut.fi/sgn/arg/paulus/beatles_sections_TUT.zip", "http://www.iua.upf.edu/~perfe/annotations/sections/beatles/structure_Beatles.rar"]
+list_of_db_urls = ["https://staff.aist.go.jp/m.goto/RWC-MDB/AIST-Annotation/AIST.RWC-MDB-P-2001.CHORUS.zip", "https://staff.aist.go.jp/m.goto/RWC-MDB/AIST-Annotation/AIST.RWC-MDB-C-2001.CHORUS.zip", "https://staff.aist.go.jp/m.goto/RWC-MDB/AIST-Annotation/AIST.RWC-MDB-J-2001.CHORUS.zip", "https://staff.aist.go.jp/m.goto/RWC-MDB/AIST-Annotation/AIST.RWC-MDB-G-2001.CHORUS.zip", "http://www.music.mcgill.ca/~jordan/salami/releases/SALAMI_data_v1.2.zip", "http://www.ifs.tuwien.ac.at/mir/audiosegmentation/dl/ep_groundtruth_excl_Paulus.zip", "http://musicdata.gforge.inria.fr/IRISA.RWC-MDB-P-2012.SEMLAB_v003_full.zip", "http://musicdata.gforge.inria.fr/IRISA.RWC-MDB-P-2012.SEMLAB_v003_reduced.zip", "http://musicdata.gforge.inria.fr/IRISA.RWC-MDB-P-2001.BLOCKS_v001.zip", "http://www.isophonics.net/files/annotations/The%20Beatles%20Annotations.tar.gz", "http://www.isophonics.net/files/annotations/Carole%20King%20Annotations.tar.gz", "http://www.isophonics.net/files/annotations/Queen%20Annotations.tar.gz", "http://www.isophonics.net/files/annotations/Michael%20Jackson%20Annotations.tar.gz", "http://www.isophonics.net/files/annotations/Zweieck%20Annotations.tar.gz", "http://www.cs.tut.fi/sgn/arg/paulus/beatles_sections_TUT.zip", "http://www.iua.upf.edu/~perfe/annotations/sections/beatles/structure_Beatles.rar"]
 
 public_data_path = File.join(mirex_path,"public_data")
 Dir.mkdir(public_data_path) unless File.directory?(public_data_path)

@@ -17,7 +17,7 @@ NOTE: We recommend making this the "./mirex_data" path, since some of the data i
    >> In "2-generate_smith2013_ismir", set the exact same path
    >> In "2-generate_smith2013_ismir", set the path for the "structural analysis evaluation" repository
 
-4. Run the Ruby script "1-get_mirex_estimates.rb" and wait a while for all the data to download.
+4. Run the Ruby script "1-get_mirex_estimates.rb" and wait a while for all the data to download. Alternatively, because this takes a long time, just unzip the contents of the included MIREX_DATA.zip file.
 
 5. Unzip all the folders that you obtained.
 	Note: in this version, one of the repositories, the Ewald Peiszer repository, is included already as a zip file ("ep_groundtruth_txt.zip"). If you set "./mirex_data" as the download path in Step 3, then just unzip it here. Otherwise, move it to wherever the rest of the zips are.
@@ -31,6 +31,8 @@ NOTE: We recommend making this the "./mirex_data" path, since some of the data i
 ===== Known issues =====
 
 1. Bug in how CSV files are parsed in Ruby v.1.9.3. Seems to work fine using an older version: try 1.8.7.
+
+1.1. In January 2014, the code was updated to work with Ruby v.2.1.
 
 
 ===== Ground Truth Directory map =====

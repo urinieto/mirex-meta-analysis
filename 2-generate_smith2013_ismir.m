@@ -25,6 +25,8 @@ base_directory = '/Users/me/Desktop/MIREX_data';
 % You should get a copy of the evalution scripts in the Code.SoundSoftware
 % repository. Wherever you put it, set the following path accordingly:
 addpath('/Users/me/Desktop/whereiputmymatlabfiles/structural_analysis_evaluation')
+% You should also, clearly, add the current path (where this file is):
+addpath('.')
 
 % Check that we have access to the correct dependencies.
 
