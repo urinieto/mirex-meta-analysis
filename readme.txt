@@ -8,22 +8,23 @@ All of the contents of this repository are released under the MIT license (shown
 
 1: You will need Ruby and Matlab and a connection to the Internet.
 
-2: You will need to download a version of the Structural Analysis Evaluation project, also hosted on SoundSoftware. You can do so here:
+2: Download a version of the Structural Analysis Evaluation project, also hosted on SoundSoftware. You can do so here:
 <https://code.soundsoftware.ac.uk/projects/structural_analysis_evaluation/repository>
 
-3: You will need to edit some of the Ruby and Matlab files you have downloaded, in order to point the program to the desired folders:
-   >> In "1-get_mirex_estimates.rb", set the path to download all the data
+3: Edit the directory locations of the Ruby and Matlab files you have downloaded, in order to point the program to the desired folders:
+   >> In "1_get_mirex_estimates.rb", set the path to download all the data
 NOTE: We recommend making this the "./mirex_data" path, since some of the data is already there!
-   >> In "2-generate_smith2013_ismir", set the exact same path
-   >> In "2-generate_smith2013_ismir", set the path for the "structural analysis evaluation" repository
+   >> In "2_generate_smith2013_ismir", set the exact same path
+   >> In "2_generate_smith2013_ismir", set the path for the "structural analysis evaluation" repository
 
-4. Run the Ruby script "1-get_mirex_estimates.rb" and wait a while for all the data to download. Alternatively, because this takes a long time, just unzip the contents of the included MIREX_DATA.zip file.
+4. Run the Ruby script "1_get_mirex_estimates.rb" and wait a while for all the data to download. [Alternatively, because this takes a long time, just unzip the contents of the included MIREX_DATA.zip file. It's all there. Running the Ruby script just allows you to literally reproduce my work.]
 
 5. Unzip all the folders that you obtained.
 	Note: in this version, one of the repositories, the Ewald Peiszer repository, is included already as a zip file ("ep_groundtruth_txt.zip"). If you set "./mirex_data" as the download path in Step 3, then just unzip it here. Otherwise, move it to wherever the rest of the zips are.
+	Note: the SALAMI data contains a zipfile, so after unzipping it, you will need to unzip one of its contents again.
 	Note: due to inconsistencies in how different zipping programs handle things, the folder structure upon unzipping may be inconsistent. Please look at the Ground Truth Directory map below and make sure your files unzip in the same way. If they don't, you'll have to move things around until the structure matches.
 
-6. Run the Matlab script "2-generate_smith2013_ismir" and wait for all the data to be assembled, and for the figures to be generated. They will appear in "./plots". This repository includes what those pictures *should* look like. Hopefully you overwrite them with exact replicas.
+6. Run the Matlab script "2_generate_smith2013_ismir" and wait for all the data to be assembled, and for the figures to be generated. They will appear in "./plots". This repository includes what those pictures *should* look like. Hopefully you overwrite them with exact replicas.
 
 7. You're done! Hey, that wasn't so bad.
 
@@ -37,7 +38,7 @@ NOTE: We recommend making this the "./mirex_data" path, since some of the data i
 
 ===== Ground Truth Directory map =====
 
-When your ground truth is all downloaded and unzipped, it should look like this:
+When your ground truth is all downloaded and unzipped, it should look like this (relevant for Step 5 above):
 
 *
 |-- AIST.RWC-MDB-C-2001.CHORUS

@@ -115,6 +115,7 @@ for i=1:length(qm_dirs),
 end
 
 % Load EP data
+% NOTE WELL: if you encounter an error here, are you sure you moved the file ep_groundtruth_txt.zip to your public_data directory and unzipped it?
 [tmp all_files tmp1] = fileattrib(strcat(ep_dir,'/*.txt'));
 for j=1:length(all_files),
     if all_files(j).directory==0 & all_files(j).GroupRead==1,
@@ -177,6 +178,7 @@ for i=1:length(tut_dirs),
 end
 
 % Load SALAMI data
+% NOTE WELL: if you encounter an error here, are you sure you unzipped the data.zip file *within* the SALAMI data file?
 [tmp all_files tmp1] = fileattrib(strcat(salami_dir,'/*'));
 for j=1:length(all_files),
     if all_files(j).directory == 0 & all_files(j).GroupRead==1,

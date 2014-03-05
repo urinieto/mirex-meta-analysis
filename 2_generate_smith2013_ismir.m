@@ -21,10 +21,14 @@ algos = {'KSP1','KSP2','KSP3','MHRAF1','OYZS1','SBV1','SMGA1','SMGA2','SP1'};
 % YOU MUST SET THE FOLLOWING PATH YOURSELF!
 % Set it to be the same as the path given at the top of '1-get_mirex_estimates.rb'.
 base_directory = '/Users/me/Desktop/MIREX_data';
+base_directory = '/Users/jordan/Desktop/MIREX_data';
+
 
 % You should get a copy of the evalution scripts in the Code.SoundSoftware
 % repository. Wherever you put it, set the following path accordingly:
 addpath('/Users/me/Desktop/whereiputmymatlabfiles/structural_analysis_evaluation')
+addpath('/Users/jordan/Documents/structural_analysis_evaluation')
+
 % You should also, clearly, add the current path (where this file is):
 addpath('.')
 
@@ -80,9 +84,9 @@ mirex_results = collect_all_mirex_results(base_directory, dsets, algos);
 % 3. Put it all together in a giant MEGADATACUBE.
 [datacube newcube extracube indexing_info] = compile_datacubes(mirex_truth, ...
     mirex_dset_origin, public_truth, mirex_output, mirex_results, mir2pub);
+megadatacube = [datacube newcube extracube];
 % If you have already done this, do not repeat this time-consuming step. Instead:
 % load datacubes
-megadatacube = [datacube newcube extracube];
 
 
 %%
