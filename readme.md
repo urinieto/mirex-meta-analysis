@@ -6,16 +6,14 @@ All of the contents of this repository are released under the MIT license (shown
 
 ## How to Reproduce the Paper
 
-1: You will need Ruby and Matlab and a connection to the Internet.
+1. You will need Ruby and Matlab and a connection to the Internet.
 
-2: Download a version of my Structural Analysis Evaluation code:
-<https://github.com/jblsmith/structural_analysis_evaluation>
+2. Download a version of my Structural Analysis Evaluation code: <https://github.com/jblsmith/structural_analysis_evaluation>
 
-3: Edit the directory locations of the Ruby and Matlab files you have downloaded, in order to point the program to the desired folders:
-   >> In "1_get_mirex_estimates.rb", set your local path to download all the data
-NOTE: We recommend making this the "./mirex_data" path, since some of the data is already there!
-   >> In "2_generate_smith2013_ismir", set the exact same path as above
-   >> In "2_generate_smith2013_ismir", set the path to your copy of the "structural analysis evaluation" repository
+3. Edit the directory locations of the Ruby and Matlab files you have downloaded, in order to point the program to the desired folders:
+	* In "1_get_mirex_estimates.rb", set your local path to download all the data (NOTE: We recommend making this the "./mirex_data" path, since some of the data is already there!)
+	* In "2_generate_smith2013_ismir", set the exact same path as above
+	* In "2_generate_smith2013_ismir", set the path to your copy of the "structural analysis evaluation" repository
 
 4. Run the Ruby script "1_get_mirex_estimates.rb" and wait a while for all the data to download. [Alternatively, because this takes a long time, just unzip the contents of the included MIREX_DATA.zip file. It's all there. Running the Ruby script just allows you to literally reproduce my work.]
 
