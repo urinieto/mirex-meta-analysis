@@ -36,8 +36,8 @@ year = {};
 mrxtruth = {};
 
 % Collect one CSV file from each year (the song names are identical in each algo CSV, so it is only necessary to have one valid ALGO here)
-algos = {'KSP1','KSP2','KSP3','MHRAF1','OYZS1','SBV1','SMGA1','SMGA2','SP1'};
-dsets = {'mrx09','mrx10_1','mrx10_2','sal'};
+% algos = {'KSP1','KSP2','KSP3','MHRAF1','OYZS1','SBV1','SMGA1','SMGA2','SP1'};
+% dsets = {'mrx09','mrx10_1','mrx10_2','sal'};
 csv_files = {};
 for i=1:length(dsets),
     csv_files{end+1} = fullfile(base_directory,dsets{i},algos{1},'per_track_results.csv');

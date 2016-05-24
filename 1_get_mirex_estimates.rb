@@ -1,19 +1,10 @@
 require "CSV"
 require "open-uri"
 # require "simplexml"
-mirex_path = "/Users/jordan/Desktop/MIREX_data"    # EDIT THIS TO BE YOUR OWN DESIRED PATH.
-                                               # IT WILL NEED TO HOLD ROUGHLY 70 MB OF DATA.
-
-
-# tmp = File.open(filename,'w')
-#     tmptxt = []
-#     open(uri) {|f|
-#         f.each_line {|line| tmptxt.push(line)}
-#     }
-#     tmp.write(tmptxt)
-#     tmp.close
-#     
-
+mirex_path = "/Users/jblsmith/Documents/repositories/mirex-meta-analysis/mirex_data"
+    # EDIT THIS TO BE YOUR OWN DESIRED PATH.
+    # IT WILL NEED TO HOLD ROUGHLY 70 MB OF DATA.
+    
 def url_download(uri, filename=".")
     open(filename, 'w') do |foo|
         foo.print open(uri).read
@@ -49,28 +40,35 @@ def json_2_text(json)
     return txt.join("\n")
 end
 
+puts "Thanks for starting the script! Stay tuned for periodic updates."
 
 # # # #         PART 1:  DOWNLOAD ALL THE STRUCTURAL ANALYSIS EVALUTION DATA PUBLISHED BY MIREX
 
 # Define list of algorithms and datasets:
-algos = ["SP1", "SMGA2", "MHRAF1", "SMGA1", "SBV1", "KSP2", "OYZS1", "KSP3", "KSP1"]
 datasets = ["mrx09", "mrx10_1", "mrx10_2", "sal"]
+
+algos = ["SP1", "SMGA2", "MHRAF1", "SMGA1", "SBV1", "KSP2", "OYZS1", "KSP3", "KSP1"]
 year = "2012"
-puts "Thanks for starting the script! Stay tuned for periodic updates."
+
+algos = ["RBH1","RBH2","RBH3","RBH4","MP1","MP2","CF5","CF6"]
+year = "2013"
+
+algos = ["SUG1","SUG2","NJ1","NB1","NB2","NB3"]
+year = "2014"
 
 # Create appropriate directory tree and download CSV files:
 Dir.mkdir(mirex_path) unless File.directory?(mirex_path)
 puts("Downloading CSV files...\n")
 datasets.each do |dset|
     # Make dataset directory:
-    dir_path = File.join(mirex_path,dset)
+    dir_path = File.join(mirex_path,year,dset)
     Dir.mkdir(dir_path) unless File.directory?(dir_path)
     algos.each do |algo|
         # Make algorithm directory:
-        algo_path = File.join(mirex_path,dset,algo)
+        algo_path = File.join(dir_path,algo)
         Dir.mkdir(algo_path) unless File.directory?(algo_path)
         # Download the CSV file to this directory:
-        algocsvpath = File.join(mirex_path,dset,algo,"per_track_results.csv")
+        algocsvpath = File.join(algo_path,"per_track_results.csv")
         csv_path = File.join(("http://nema.lis.illinois.edu/nema_out/mirex"+year),"/results/struct",dset,algo,"per_track_results.csv")
         url_download(csv_path, algocsvpath)
     end
@@ -85,10 +83,10 @@ puts "Since this script points to " + datasets.length.to_s + " datasets and " + 
 datasets.each do |dset|
     algos.each do |algo|
         puts( "Starting to download "+dset+ " dataset for " + algo + " algorithm...\n")
-        algocsvpath = File.join(mirex_path,dset,algo,"per_track_results.csv")
+        download_folder = File.join(mirex_path,year,dset,algo)
+        algocsvpath = File.join(download_folder,"per_track_results.csv")
         csv_data = File.read(algocsvpath).split("\n")
         header = csv_data.delete_at(0)
-        download_folder = File.join(mirex_path,dset,algo)
         # For each line in the spreadsheet, extract the songid and download the corresponding json document.
         csv_data.each do |line|
             line = line.split(",")
@@ -106,7 +104,7 @@ puts "..done with that."
 
 puts "Now, a much faster step: turning all the json files you downloaded into simpler text files."
 # Scan for all the json files, and convert each one into two text files, one for the algorithm output, one for the annotation:
-all_json_files = Dir.glob(File.join(mirex_path,"*","*","*.js"))
+all_json_files = Dir.glob(File.join(mirex_path,year,"*","*","*.js"))
 all_json_files.each do |file|
     convert_file(file)
     puts file

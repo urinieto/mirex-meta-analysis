@@ -1,4 +1,4 @@
-function [datacube newcube extracube indexing_info] = compile_datacubes(mirex_truth, mirex_dset_origin, public_truth, mirex_output, mirex_results, mir2pub)
+function [datacube newcube extracube indexing_info] = compile_datacubes(mirex_truth, mirex_dset_origin, public_truth, mirex_output, mirex_results)
 % function [datacube newcube extracube indexing_info] = compile_datacubes(mirex_truth, ...
 %   mirex_dset_origin, public_truth, mirex_output, mirex_results, mir2pub)
 %   %   %   %   %   %   %   %   %   LOAD DATA   %   %   %   %   %   %   %   %   %
@@ -21,7 +21,7 @@ function [datacube newcube extracube indexing_info] = compile_datacubes(mirex_tr
 
 
 % In this script, the 'n' at the beginning of a variable means 'number of'.
-n_songs = size(mir2pub,1);
+n_songs = size(mirex_dset_origin,1);
 n_metrics = size(mirex_results(1).algo(1).results,2);
 n_algos = size(mirex_results(1).algo,2);
 datacube = zeros(n_songs, n_metrics, n_algos);
@@ -29,7 +29,7 @@ datacube = zeros(n_songs, n_metrics, n_algos);
 % DATACUBE contains evaluation data published by MIREX:
 topelement = 1;
 for i=1:length(mirex_results),
-    for j=1:9,
+    for j=1:n_algos,
         datacube(topelement:topelement-1+length(mirex_results(i).algo(j).results),:,j) = mirex_results(i).algo(j).results;
     end
     topelement = topelement + length(mirex_results(i).algo(j).results);
@@ -59,7 +59,7 @@ for i=1:size(datacube,1),
     % You can test that this indexing worked by looking at the file names of the two descriptions:
     % mirex_truth(i).file
     % mirex_output(dset).algo(1).song(i_wrt_dset).file
-    for j=1:9,
+    for j=1:n_algos,
         % Collect information specific to the estimated description:
         n_segs_est = length(mirex_output(dset).algo(j).song(i_wrt_dset).tim) - 1;
         n_labs_est = length(unique(mirex_output(dset).algo(j).song(i_wrt_dset).lab)) - 1;
@@ -86,7 +86,7 @@ for i=1:size(datacube,1)
     % Get onsets and labels from Annotation:
     a_onset = mirex_truth(i).tim;
     a_label = mirex_truth(i).lab;
-    for j=1:9,
+    for j=1:n_algos,
         % Get onsets and labels from Estimated description:
         e_onset = mirex_output(dset).algo(j).song(i_wrt_dset).tim;
         e_label = mirex_output(dset).algo(j).song(i_wrt_dset).lab;
