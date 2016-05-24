@@ -1,0 +1,4 @@
+# Local path to the data within the mirex folder
+./mirex_data
+# Global path to Structural Analysis Evaluation repository
+/Users/me/Desktop/whereiputmymatfiles/structural_analysis_evaluation

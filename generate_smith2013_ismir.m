@@ -22,38 +22,34 @@ algos_by_year{1} = {'KSP1','KSP2','KSP3','MHRAF1','OYZS1','SBV1','SMGA1','SMGA2'
 algos_by_year{2} = {'RBH1','RBH2','RBH3','RBH4','MP1','MP2','CF5','CF6'};
 algos_by_year{3} = {'SUG1','SUG2','NJ1','NB1','NB2','NB3'};
 
+% Also load paths to mirex data and to structural analysis evaluation
+% toolbox:
+fid = fopen('user_paths.txt');
+t = textscan(fid,'%s','Delimiter','\n');
+mirex_path = t{1}{2};
+toolbox_path = t{1}{4};
+fclose(fid);
+% You need to have a copy of the evalution scripts in the Structural
+% Analysis Evaluation toolbox, in the location specified in user_paths.
+addpath(toolbox_path)
+% Check that we have access to the correct dependencies.
+if exist('compare_structures.m','file')~=2,
+    fprintf('I could not locate ''compare_structures.m'', part of the Structural\nAnalysis Evaluation project. Please read the help for this file before proceeding.\n')
+end
+if exist('load_annotation.m','file')~=2,
+    fprintf('I could not locate ''load_annotation.m'', part of the Structural\nAnalysis Evaluation project. Please read the help for this file before proceeding.\n')
+end
+if exist('collect_all_mirex_annotations','file')~=2,
+    fprintf('I could not locate ''collect_all_mirex_annotations.m'', which should\nbe in the same folder as this file. Something really screwed up has happened, clearly!\nPlease read the help for this file before proceeding.\n')
+end
 
+%%
 
 for year = 1:3,
 
     algos = algos_by_year{year};
 
-
-
-    % YOU MUST SET THE FOLLOWING PATH YOURSELF!
-    % Set it to be the same as the path given at the top of '1-get_mirex_estimates.rb'.
-    % base_directory = '/Users/me/Desktop/MIREX_data';
-    base_directory_w_year = ['/Users/jblsmith/Documents/repositories/mirex-meta-analysis/mirex_data/', years{year}];
-    base_directory = '/Users/jblsmith/Documents/repositories/mirex-meta-analysis/mirex_data';
-    % You should get a copy of the evalution scripts in the Code.SoundSoftware
-    % repository. Wherever you put it, set the following path accordingly:
-    % addpath('/Users/me/Desktop/whereiputmymatlabfiles/structural_analysis_evaluation')
-    % addpath('/Users/jordan/Documents/structural_analysis_evaluation')
-    addpath('/Users/jblsmith/Documents/repositories/mirex-meta-analysis')
-    % You should also, clearly, add the current path (where this file is):
-    % addpath('.')
-
-    % Check that we have access to the correct dependencies.
-
-    if exist('compare_structures.m')~=2,
-        fprintf('I could not locate ''compare_structures.m'', part of the Structural Analysis Evaluation project. Please read the help for this file before proceeding.\n')
-    end
-    if exist('load_annotation.m')~=2,
-        fprintf('I could not locate ''load_annotation.m'', part of the Structural Analysis Evaluation project. Please read the help for this file before proceeding.\n')
-    end
-    if exist('collect_all_mirex_annotations')~=2,
-        fprintf('I could not locate ''collect_all_mirex_annotations.m'', which should be in the same folder as this file. Something really screwed up has happened, clearly! Please read the help for this file before proceeding.\n')
-    end
+    base_directory_w_year = [mirex_path, '/', years{year}];
 
 %%
 % STEP 1: Download data from MIREX website:
@@ -68,7 +64,7 @@ for year = 1:3,
 % STEP 2: Import all this data into some Matlab structures.
 %
 % 1. Assemble MIREX ground truth file data in Matlab.
-[mirex_truth mirex_dset_origin] = collect_all_mirex_annotations(base_directory_w_year, dsets, algos);
+[mirex_truth, mirex_dset_origin] = collect_all_mirex_annotations(base_directory_w_year, dsets, algos);
 % 2. Assemble MIREX algorithm output data in Matlab.
 mirex_output = collect_all_mirex_algo_output_data(base_directory_w_year, dsets, algos);
 % 3. Assemble MIREX evaluation results in Matlab.
@@ -76,7 +72,7 @@ mirex_results = collect_all_mirex_results(base_directory_w_year, dsets, algos);
 % 4. Download public repositories of annotations.
 % NB: You must do this manually, as per the README.
 % 5. Assemble public ground truth data in Matlab.
-[public_truth public_dset_origin] = collect_all_public_annotations(base_directory);
+[public_truth, public_dset_origin] = collect_all_public_annotations(mirex_path);
 
 
 % %%
@@ -93,7 +89,7 @@ mirex_results = collect_all_mirex_results(base_directory_w_year, dsets, algos);
 % 1. Compute extra evaluation measures using MIREX algorithm output.
 % 2. Compute extra features of the annotations (song length, mean segment length, etc.).
 % 3. Put it all together in a giant MEGADATACUBE.
-[datacube newcube extracube indexing_info] = compile_datacubes(mirex_truth, ...
+[datacube, newcube, extracube, indexing_info] = compile_datacubes(mirex_truth, ...
     mirex_dset_origin, public_truth, mirex_output, mirex_results);
 megadatacube = [datacube newcube extracube];
 % If you have already done this, do not repeat this time-consuming step. Instead:

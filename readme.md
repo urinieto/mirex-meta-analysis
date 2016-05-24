@@ -7,23 +7,23 @@ All of the contents of this repository are released under the MIT license (shown
 
 1. You will need Ruby and Matlab and a connection to the Internet.
 
-2. Download a version of my Structural Analysis Evaluation code: <https://github.com/jblsmith/structural_analysis_evaluation>
+2. Clone or download a version of the Structural Analysis Evaluation code: <https://github.com/jblsmith/structural_analysis_evaluation>
 
-3. Edit the directory locations of the Ruby and Matlab files you have downloaded, in order to point the program to the desired folders:
-	* In "1_get_mirex_estimates.rb", set your local path to download all the data (NOTE: We recommend making this the "./mirex_data" path, since some of the data is already there!)
-	* In "2_generate_smith2013_ismir", set the exact same path as above
-	* In "2_generate_smith2013_ismir", set the path to your copy of the "structural analysis evaluation" repository
+3. Edit the directory locations specified in "user\_paths.txt". The default setting for "mirex\_data" should be fine; just set the other path to wherever you downloaded the toolbox in Step 2.
 
-4. Run the Ruby script "1_get_mirex_estimates.rb" and wait a while for all the data to download.
-	* Alternatively, because this takes a long time and the mirex data is never updated, just unzip the contents of the included "mirex_data.zip" file. It's all there. You can skip running the script.
-	* However, be forewarned that the exploded size of the zipfile is very large: 41 MB becomes 430 MB on disk. This is because it contains over 100,000 tiny files, which takes up a lot of disk space due to the minimum file allocation size.
+4. Get the MIREX data and get the public annotation data:
+	* Option 1: run the Ruby script "get\_mirex\_estimates.rb"
+		* This version takes a while because it requires downloading lots of small files from the MIREX website.
+	* Option 2: unzip "mirex\_data.zip"; then run "get\_mirex\_estimates.rb" with argument "2".
+		* Part 2 of the Ruby script gets the public annotations for you.
+	* Note: whichever way you do it, you will need room for hundreds of thousands of small text files. Although the size is only about 50 MB, the size on disk can be over 430 MB because of the minimum file allocation size.
 
 5. Unzip all the folders that you obtained.
-	Note: in this version, one of the repositories, the Ewald Peiszer repository, is included already as a zip file ("ep_groundtruth_txt.zip"). If you set "./mirex_data" as the download path in Step 3, then just unzip it here. Otherwise, move it to wherever the rest of the zips are.
-	* Note: the SALAMI data contains a zipfile, so after unzipping it, you will need to unzip one of its contents again.
+	Note: in this version, one of the repositories, the Ewald Peiszer repository, is included already as a zip file ("ep\_groundtruth\_txt.zip"). You should move this into the subfolder "mirex\_data/public\_data" and unzip it there.
+	* Note: after the SALAMI zipfile contains a zipfile, so after unzipping it, you will need to unzip one of its contents again.
 	* Note: due to inconsistencies in how different zipping programs handle things, the folder structure upon unzipping may be inconsistent. Please look at the Ground Truth Directory map below and make sure your files unzip in the same way. If they don't, you'll have to move things around until the structure matches.
 
-6. Run the Matlab script "2_generate_smith2013_ismir" and wait for all the data to be assembled, and for the figures to be generated. They will appear in "./plots". This repository includes what those pictures *should* look like. Hopefully you overwrite them with exact replicas.
+6. Run the Matlab script "generate\_smith2013\_ismir" and wait for all the data to be assembled, and for the figures to be generated. They will appear in "./plots". This repository includes what those pictures *should* look like. Hopefully you overwrite them with exact replicas.
 	* You should wind up with exact copies of the files already included: datacube2012, datacube2013, and datacube2014, which compile the evaluation results.
 	* You should also have new files MirexDataStruct2012, MirexDataStruct2013, and MirexDataStruct2014, which consist of all the ground truth data, algorithm predictions, and public ground truth descriptions.
 
