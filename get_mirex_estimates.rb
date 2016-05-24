@@ -2,14 +2,14 @@ require "CSV"
 require "open-uri"
 
 # Usage:
-#   ruby 1_get_mirex_estimates.rb
+#   ruby get_mirex_estimates.rb
 #     -> Run Parts 1 and 2 of the script.
 #        Part 1 takes a long time because it requires downloading thousands of files from MIREX website.
 #        Part 2 takes a few minutes. It downloads ground truth zipfiles from various sources.
 #        Before running, please confirm paths in "user_path.txt".
-#   ruby 1_get_mirex_estimates.rb 1
+#   ruby get_mirex_estimates.rb 1
 #     -> Run only Part 1.
-#   ruby 1_get_mirex_estimates.rb 2
+#   ruby get_mirex_estimates.rb 2
 #     -> Run only Part 2.
 
 def url_download(uri, filename=".")
