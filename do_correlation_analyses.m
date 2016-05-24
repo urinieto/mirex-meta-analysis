@@ -101,7 +101,13 @@ fprintf('Section 3.2: ''While the middle half of the values of nsa [number of se
 
 fprintf('Index 17 gives the number of segments in the annotation; 21 gives the number of segments in the estimated description of the algorithm.\n')
 fprintf('Boxplot shows general trend of overestimating number of segments.\n')
-H = boxplot(megadatacube(:,[17 21],:))
+% H = boxplot(megadatacube(:,[17 21],:))
+% This seems to fail for some reason. Oh well, the long way:
+tmp1 = megadatacube(:,17,:);
+tmp2 = megadatacube(:,21,:);
+H = boxplot(tmp1(:),tmp2(:));
+% But now the plot is a jumble... perhaps the long way is different. Issue
+% flagged!
 fprintf('Take the middle half of the data for annotated and estimated segments. Look at the range.\n')
 
 tmp = sort(megadatacube(:,17,:));
