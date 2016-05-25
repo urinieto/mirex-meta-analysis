@@ -2,7 +2,6 @@ This README explains all the steps required to replicate the work done for the a
 
 All of the contents of this repository are released under the MIT license (shown below).
 
-
 ## How to Reproduce the Paper
 
 1. You will need Ruby and Matlab and a connection to the Internet.
@@ -29,6 +28,14 @@ All of the contents of this repository are released under the MIT license (shown
 
 7. You're done!
 
+This project now includes MIREX data from 2013 and 2014. This data is not necessary to replicate Smith & Chew 2013, but is handy, and needed to replicate Smith & Goto 2016.
+
+## References
+
+Smith, Jordan B. L. and Elaine Chew. 2013. A meta-analysis of the MIREX Structural Segmentation task. *Proceedings of the International Society for Music Information Retrieval Conference.* Curitiba, Brazil. 251–6.
+* [Summary and links to PDF, poster](http://www.music.mcgill.ca/~jordan/mirex-meta-analysis/index.shtml)
+
+Smith, Jordan B. L. and Masataka Goto. 2016. Using priors to improve estimates of music structure. *Proceedings of the International Society for Music Information Retrieval Conference.* New York City, USA.
 
 ## Ground Truth Directory map
 
