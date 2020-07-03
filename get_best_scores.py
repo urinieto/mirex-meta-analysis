@@ -19,6 +19,25 @@ def f_measure(p, r):
     return 2 * p * r / (p + r)
 
 
+def print_latex_table():
+    tbl = r"\begin{tabular}{ c|c c c c }" + '\n Datasets '
+    for metric in METRICS:
+        tbl += f"& {metric} "
+    tbl += r"\\" + '\n'
+    tbl += r"\hline" + '\n '
+    for ds in RES.keys():
+        tbl += f"{ds} "
+        for metric in METRICS:
+            try:
+                tbl += f"& {RES[ds][metric] * 100:.2f} \pm {STD[ds][metric] * 100:.2f} ({NAMES[ds][metric]}) "
+            except KeyError:
+                tbl += "& -- "
+        tbl += r"\\" + '\n'
+    tbl += r"\hline" + '\n'
+    tbl += r"\end{tabular}"
+    print(tbl)
+
+
 def update_dicts(metric, mean, std, ds, algo, year):
     ds = "salami" if ds == "sal" else ds
     if ds == "mrx10_1" and (metric == "F_nce" or metric == "F_p"):
@@ -49,6 +68,7 @@ def main():
     print(RES)
     print(STD)
     print(NAMES)
+    print_latex_table()
 
 
 if __name__ == "__main__":
